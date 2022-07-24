@@ -9,8 +9,7 @@ class App extends React.Component {
   }
 
   render() {
-    return React.createElement('div', null,
-      React.createElement('h1', null, 'Microtodo'),
+    return React.createElement('div', { id: 'app' },
       React.createElement('h2', null, `${this.state.date.getFullYear()}/${this.state.date.getMonth()}/${this.state.date.getDate()}`),
       React.createElement(Todo, { name: 'main' }, null),
     );
@@ -20,9 +19,11 @@ class App extends React.Component {
 class Todo extends React.Component {
   constructor(props) {
     super(props);
+    const items = localStorage.getItem('items');
+
     this.state = {
       inputValue: DEFAULT_INPUT,
-      items: [],
+      items: items ? JSON.parse(items) : [],
       name: props.name,
     };
   }
@@ -31,6 +32,7 @@ class Todo extends React.Component {
     if (this.state.inputValue) {
       this.state.items.push(this.state.inputValue);
       this.setState({ inputValue: DEFAULT_INPUT });
+      this.updateStorage(this.state.items);  
     }
   }
 
@@ -39,6 +41,11 @@ class Todo extends React.Component {
       return itemIndex != index;
     });
     this.setState({ items: newItems });
+    this.updateStorage(newItems);
+  }
+
+  updateStorage = (items) => {
+    localStorage.setItem('items', JSON.stringify(items));
   }
 
   changeInput = (e) => {
@@ -64,5 +71,4 @@ class Todo extends React.Component {
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(React.createElement(App, { toWhat: 'World!' }, null));
-// root.render(React.createElement(Button, null, null));
+root.render(React.createElement(App, null, null));
