@@ -1,0 +1,21 @@
+body {
+  background-color: #2F4F4F;
+}
+
+#action-button {
+  color: black;
+  border: 0px;
+  margin-left: -50px;
+  width: 5%;
+}
+
+#add-input {
+  border: 0px;
+  padding-right: 50px;
+  width: 95%;
+}
+
+.todo-item {
+  padding-right: 50px;
+  width: 95%;
+}

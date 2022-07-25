@@ -54,17 +54,23 @@ class Todo extends React.Component {
 
   render() {
     return React.createElement('div', null,
-      React.createElement('ul', null,
-        this.state.items.map((item, index) => {
-          return React.createElement('li', null,
-            `${item}`,
-            React.createElement('button', { onClick: () => { this.deleteItem(index) } }, 'Done'),
-          )
-        }),
+      React.createElement('div', { class: 'u-full-width' },
+        React.createElement('input', { 
+          onChange: this.changeInput, 
+          value: this.state.inputValue, 
+          type: 'text', 
+          placeholder: 'What do you need todo? ', 
+          id: 'add-input'
+        }, null),
+        React.createElement('button', { onClick: this.addItem, id: 'action-button' }, '+'),
       ),
       React.createElement('div', null,
-        React.createElement('input', { onChange: this.changeInput, value: this.state.inputValue, type: 'text', placeholder: 'What do you need todo? ' }, null),
-        React.createElement('button', { onClick: this.addItem }, 'Add item'),
+        this.state.items.map((item, index) => {
+          return React.createElement('div', { class: 'u-full-width' },
+            React.createElement('p', { class: 'todo-item' }, `${item}`),
+            React.createElement('button', { onClick: () => { this.deleteItem(index) }, id: 'action-button' }, 'V'),
+          )
+        }),
       ),
     );
   }
